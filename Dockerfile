@@ -35,14 +35,13 @@ RUN wget https://github.com/dromara/soul/releases/download/${VERSION}/soul-admin
 COPY bin/docker-startup.sh bin/docker-startup.sh
 COPY conf/application.yml conf/application.yml
 
+RUN chmod +x bin/docker-startup.sh
 # set startup log dir
 RUN mkdir -p logs \
 	&& cd logs \
 	&& touch start.out \
 	&& ln -sf /dev/stdout start.out \
 	&& ln -sf /dev/stderr start.out
-
-RUN chmod +x bin/docker-startup.sh
 
 VOLUME $BASE_DIR/conf
 VOLUME $BASE_DIR/logs
