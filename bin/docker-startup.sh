@@ -105,5 +105,6 @@ JAVA_OPT="${JAVA_OPT} --spring.config.name=${CUSTOM_SEARCH_NAMES}"
 JAVA_OPT="${JAVA_OPT} --server.max-http-header-size=10KB"
 
 echo "application is starting,you can check the ${LOG_PATH}/start.out"
-echo "$JAVA ${JAVA_OPT}" > ${LOG_PATH}/start.out 2>&1 &
+# exec $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1
+# $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1
 nohup $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1 < /dev/null

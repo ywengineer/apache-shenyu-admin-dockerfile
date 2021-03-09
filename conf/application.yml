@@ -9,7 +9,7 @@ spring:
     prefix: classpath:/static/
     suffix: .html
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT}/${MYSQL_DB:soul}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT}/${MYSQL_DB:soul}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&verifyServerCertificate=false
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
@@ -17,9 +17,48 @@ mybatis:
   config-location: classpath:/mybatis/mybatis-config.xml
   mapper-locations: classpath:/mappers/*.xml
 soul:
+  register:
+    registerType: http #zookeeper
+    serverLists : localhost:2181
+    props:
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckTimes: 5
+      scheduledTime: 10
+  database:
+    dialect: mysql
+    init_script: "META-INF/schema.sql"
+    init_enable: false
+  aes:
+    secret:
+      key: 2095132720951327
+  jwt:
+    key: 2095132720951327
+  shiro:
+    white-list: /,/favicon.*,/static/**,/index**,/plugin,/platform/**,/websocket,/configs/**,/soul-client/**,/error,/actuator/health
+  swagger:
+     enabled: false
   sync:
     websocket:
         enabled : true
+    # zookeeper:
+    #     url: localhost:2181
+    #     sessionTimeout: 5000
+    #     connectionTimeout: 2000
+    # http:
+    #   enabled: true
+    # nacos:
+    #   url: localhost:8848
+    #   namespace: 1c10d748-af86-43b9-8265-75f487d20c6c
+    #   username:
+    #   password:
+    #   acm:
+    #     enabled: false
+    #     endpoint: acm.aliyun.com
+    #     namespace:
+    #     accessKey:
+    #     secretKey:
 logging:
   level:
     root: info

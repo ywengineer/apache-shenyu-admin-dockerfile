@@ -23,8 +23,6 @@ ENV PREFER_HOST_MODE="ip"\
 
 WORKDIR /$BASE_DIR
 
-RUN yum install -y wget
-
 RUN set -x \
     && ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone
 
