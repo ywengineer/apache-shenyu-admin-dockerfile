@@ -18,14 +18,15 @@ mybatis:
   mapper-locations: classpath:/mappers/*.xml
 soul:
   register:
-    registerType: http #zookeeper
-    serverLists : localhost:2181
+    registerType: ${REGISTER_TYPE:http}
+    serverLists : ${NACOS_SERVER_ADDRS}
     props:
       sessionTimeout: 5000
       connectionTimeout: 2000
       checked: true
       zombieCheckTimes: 5
       scheduledTime: 10
+      nacosNameSpace: ${NACOS_NAMESPACE}
   database:
     dialect: mysql
     init_script: "META-INF/schema.sql"
@@ -42,12 +43,6 @@ soul:
   sync:
     websocket:
         enabled : true
-    # zookeeper:
-    #     url: localhost:2181
-    #     sessionTimeout: 5000
-    #     connectionTimeout: 2000
-    # http:
-    #   enabled: true
     # nacos:
     #   url: localhost:8848
     #   namespace: 1c10d748-af86-43b9-8265-75f487d20c6c
