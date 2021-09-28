@@ -1,0 +1,93 @@
+server:
+  port: 9095
+  address: 0.0.0.0
+
+spring:
+  thymeleaf:
+    cache: true
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT}/${MYSQL_DB:soul}?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&verifyServerCertificate=false&autoReconnect=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mappers/*.xml
+
+shenyu:
+  register:
+    registerType: ${REGISTER_TYPE:http}
+    serverLists : ${NACOS_SERVER_ADDRS}
+    props:
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ${NACOS_NAMESPACE}
+  database:
+    dialect: mysql
+    init_script: "sql-script/mysql/schema.sql"
+    init_enable: false
+  sync:
+    websocket:
+      enabled: true
+#      nacos:
+#        url: localhost:8848
+#        namespace: 1c10d748-af86-43b9-8265-75f487d20c6c
+#        username:
+#        password:
+#        acm:
+#          enabled: false
+#          endpoint: acm.aliyun.com
+#          namespace:
+#          accessKey:
+#          secretKey:
+  aes:
+    secret:
+      key: 2095132720951327
+      iv: 6075877187097700
+  ldap:
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+  jwt:
+    expired-seconds: 86400000
+  shiro:
+    white-list:
+      - /
+      - /favicon.*
+      - /static/**
+      - /index**
+      - /plugin
+      - /platform/**
+      - /websocket
+      - /configs/**
+      - /shenyu-client/**
+      - /error
+      - /actuator/health
+      - /swagger-ui.html
+      - /webjars/**
+      - /swagger-resources/**
+      - /v2/api-docs
+      - /csrf
+  swagger:
+    enable: false
+
+logging:
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
