@@ -1,7 +1,5 @@
 #!/bin/bash
 set -x
-export DEFAULT_SEARCH_LOCATIONS="classpath:/,classpath:/config/,file:./,file:./config/"
-export CUSTOM_SEARCH_LOCATIONS=${DEFAULT_SEARCH_LOCATIONS},file:${BASE_DIR}/conf/
 export CUSTOM_SEARCH_NAMES="application"
 export LOG_PATH="${BASE_DIR}/logs"
 #===========================================================================================
@@ -88,23 +86,18 @@ fi
 # JVM log options
 #===========================================================================================
 if [[ "$JAVA_MAJOR_VERSION" -ge "9" ]] ; then
-  JAVA_OPT="${JAVA_OPT} -cp .:${BASE_DIR}/plugins/cmdb/*.jar:${BASE_DIR}/plugins/mysql/*.jar"
   JAVA_OPT="${JAVA_OPT} -Xlog:gc*:file=${LOG_PATH}/gc.log:time,tags:filecount=10,filesize=102400"
 else
-  JAVA_OPT="${JAVA_OPT} -Djava.ext.dirs=${JAVA_HOME}/jre/lib/ext:${JAVA_HOME}/lib/ext:${BASE_DIR}/plugins/cmdb:${BASE_DIR}/plugins/mysql:${BASE_DIR}/plugins/lib"
+  JAVA_OPT="${JAVA_OPT} -Djava.ext.dirs=${JAVA_HOME}/jre/lib/ext:${JAVA_HOME}/lib/ext:${BASE_DIR}/ext"
   JAVA_OPT="${JAVA_OPT} -Xnoclassgc -Xloggc:${LOG_PATH}/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps"
   JAVA_OPT="${JAVA_OPT} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=100 -XX:GCLogFileSize=50m"
 fi
 
 JAVA_OPT="${JAVA_OPT} -Dwork.home=${BASE_DIR}"
-JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/Main.jar"
 JAVA_OPT="${JAVA_OPT} ${JAVA_OPT_EXT}"
-JAVA_OPT="${JAVA_OPT} --spring.config.location=${CUSTOM_SEARCH_LOCATIONS}"
-JAVA_OPT="${JAVA_OPT} --spring.config.name=${CUSTOM_SEARCH_NAMES}"
-#JAVA_OPT="${JAVA_OPT} --logging.config=${BASE_DIR}/conf/.xml"
-JAVA_OPT="${JAVA_OPT} --server.max-http-header-size=10KB"
+JAVA_OPT="${JAVA_OPT} -cp .:${BASE_DIR}/conf:${BASE_DIR}/plugins/*:${BASE_DIR}/lib/* org.apache.shenyu.admin.ShenyuAdminBootstrap"
 
-echo "application is starting,you can check the ${LOG_PATH}/start.out"
+echo "$JAVA ${JAVA_OPT}" > ${LOG_PATH}/args.out
 # exec $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1
 # $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1
 nohup $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1 < /dev/null

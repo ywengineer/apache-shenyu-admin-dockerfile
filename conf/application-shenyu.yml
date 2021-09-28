@@ -61,7 +61,7 @@ shenyu:
     object-class: person
     login-field: cn
   jwt:
-    expired-seconds: 86400000
+    key: 2095132720951327
   shiro:
     white-list:
       - /
