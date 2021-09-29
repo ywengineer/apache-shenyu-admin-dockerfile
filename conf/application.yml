@@ -1,6 +1,7 @@
 server:
   port: 9095
   address: 0.0.0.0
+
 spring:
   thymeleaf:
     cache: true
@@ -13,9 +14,11 @@ spring:
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
-mybatis:
+
+mybatis:  
   config-location: classpath:/mybatis/mybatis-config.xml
   mapper-locations: classpath:/mappers/*.xml
+  
 soul:
   register:
     registerType: ${REGISTER_TYPE:http}
@@ -56,9 +59,9 @@ soul:
     #     secretKey:
 logging:
   level:
-    root: info
+    root: warn
     org.springframework.boot: info
-    org.apache.ibatis: info
-    org.dromara.soul.bonuspoint: info
-    org.dromara.soul.lottery: info
-    org.dromara.soul: info
+    org.apache.ibatis: warn
+    org.dromara.soul.bonuspoint: warn
+    org.dromara.soul.lottery: warn
+    org.dromara.soul: warn
