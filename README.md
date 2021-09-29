@@ -1,6 +1,6 @@
-# Soul Admin docker
+# Apache ShenYu Admin dockerfile
 
-[Soul](https://github.com/dromara/soul) admin dockerfile
+[Apache Shenyu](https://shenyu.apache.org/zh/docs) admin dockerfile
 
 ## Enviroment Vars
 
@@ -31,9 +31,9 @@
 ```yaml
 version: '3.8'
 services:
-  soul_admin:
-    image: ywengineer/soul-docker:release-2.3.0
-    container_name: soul_admin
+  shenyu_admin:
+    image: ywengineer/soul-docker:shenyu-admin-2.4.0
+    container_name: shenyu_admin
     external_links:
       - mysql
     restart: always
@@ -51,5 +51,5 @@ services:
       - "MYSQL_PASSWORD=iis"
       - "MYSQL_DB=soul"
     volumes:
-      - ./logs:/usr/local/soul-admin/logs
+      - ./logs:/usr/local/shenyu-admin/logs
 ```
