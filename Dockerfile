@@ -24,7 +24,7 @@ ENV PREFER_HOST_MODE="ip"\
 RUN set -x \
     && ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone
 
-COPY --from=apache/shenyu-admin:2.4.0 /opt/shenyu-admin $BASE_DIR/
+COPY --from=apache/shenyu-admin:2.4.2 /opt/shenyu-admin $BASE_DIR/
 
 WORKDIR $BASE_DIR
 
