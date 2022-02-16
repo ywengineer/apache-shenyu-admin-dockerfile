@@ -99,5 +99,5 @@ JAVA_OPT="${JAVA_OPT} -cp .:${BASE_DIR}/conf:${BASE_DIR}/plugins/*:${BASE_DIR}/l
 
 echo "$JAVA ${JAVA_OPT}" > ${LOG_PATH}/args.out
 # exec $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1
-# $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1
-nohup $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1 < /dev/null
+# nohup $JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1 < /dev/null
+$JAVA ${JAVA_OPT} > ${LOG_PATH}/start.out 2>&1 < /dev/null
