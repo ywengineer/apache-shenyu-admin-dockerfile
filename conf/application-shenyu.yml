@@ -37,6 +37,7 @@ shenyu:
   sync:
     websocket:
       enabled: true
+      messageMaxSize: 10240
 #      nacos:
 #        url: localhost:8848
 #        namespace: 1c10d748-af86-43b9-8265-75f487d20c6c
@@ -68,11 +69,8 @@ shenyu:
       - /favicon.*
       - /static/**
       - /index**
-      - /plugin
-      - /platform/**
+      - /platform/login
       - /websocket
-      - /configs/**
-      - /shenyu-client/**
       - /error
       - /actuator/health
       - /swagger-ui.html
